@@ -67,7 +67,7 @@ public class LibroIsbnServiceTest {
     void createLibroIsbnSuccess() {
 
         final var maxPerlibro = 15;
-        final var creditsNewLibro = 17;
+        final var creditsNewLibro = 7;
 
         final var libroIsbnSaved = LibroISBN.builder()
                 .id(1L)

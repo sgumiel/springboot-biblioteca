@@ -32,6 +32,8 @@ public class LibroISbnServiceImpl implements LibroIsbnService {
         if (creditsNewLibro > maxCreditsPerLibro) {
             throw new CreateLibroISBNCreditsMaximun(creditsNewLibro, maxCreditsPerLibro);
         }
-        return null;
+
+        final var libroIsbnSaved = this.libroIsbnRepository.save(libroIsbn);
+        return libroIsbnSaved;
     }
 }
