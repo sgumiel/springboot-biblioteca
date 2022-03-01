@@ -16,3 +16,7 @@ spring:
     username: postgres
     password: postgres
     continue-on-error: false
+
+
+credits:
+  max-per-libro: 14
