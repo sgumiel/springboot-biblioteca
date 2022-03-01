@@ -49,7 +49,7 @@ public class LibroIsbnServiceTest {
         final var creditsNewLibro = 100;
 
         Mockito.when(libroIsbnRepository.existsByIsbn(ArgumentMatchers.anyString()))
-                .thenReturn(true);
+                .thenReturn(false);
 
         Mockito.when(creditsConfiguration.getMaxPerLibro())
                 .thenReturn(maxPerlibro);

@@ -2,6 +2,7 @@ package com.kairosds.cursospb2.biblioteca.libroisbn.service;
 
 import com.kairosds.cursospb2.biblioteca.config.CreditsConfiguration;
 import com.kairosds.cursospb2.biblioteca.libroisbn.domain.LibroISBN;
+import com.kairosds.cursospb2.biblioteca.libroisbn.domain.exception.CreateLibroISBNCreditsMaximun;
 import com.kairosds.cursospb2.biblioteca.libroisbn.domain.exception.CreateLibroISBNExists;
 import com.kairosds.cursospb2.biblioteca.libroisbn.repository.LibroIsbnRepository;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,13 @@ public class LibroISbnServiceImpl implements LibroIsbnService {
 
         if (isbnExists) {
             throw new CreateLibroISBNExists(isbn);
+        }
+
+        final var maxCreditsPerLibro = this.creditsConfiguration.getMaxPerLibro();
+        final var creditsNewLibro = libroIsbn.getCreditos();
+
+        if (creditsNewLibro > maxCreditsPerLibro) {
+            throw new CreateLibroISBNCreditsMaximun(creditsNewLibro, maxCreditsPerLibro);
         }
         return null;
     }
