@@ -1,4 +1,4 @@
-package com.kairosds.cursospb2.biblioteca;
+package com.kairosds.cursospb2.biblioteca.libro.domain;
 
 import lombok.Builder;
 import lombok.Data;
