@@ -1,7 +1,7 @@
 package com.kairosds.cursospb2.biblioteca.libroisbn.controller;
 
 import com.kairosds.cursospb2.biblioteca.apierror.ApiError;
-import com.kairosds.cursospb2.biblioteca.apierror.CreateLibroIsbnErrors;
+import com.kairosds.cursospb2.biblioteca.libroisbn.domain.error.CreateLibroIsbnErrors;
 import com.kairosds.cursospb2.biblioteca.libroisbn.domain.exception.CreateLibroISBNCreditsMaximun;
 import com.kairosds.cursospb2.biblioteca.libroisbn.domain.exception.CreateLibroISBNExists;
 import org.springframework.http.ResponseEntity;

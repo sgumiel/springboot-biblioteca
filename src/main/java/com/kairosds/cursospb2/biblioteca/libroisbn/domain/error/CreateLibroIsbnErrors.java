@@ -1,4 +1,4 @@
-package com.kairosds.cursospb2.biblioteca.apierror;
+package com.kairosds.cursospb2.biblioteca.libroisbn.domain.error;
 
 public enum CreateLibroIsbnErrors {
 

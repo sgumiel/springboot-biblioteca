@@ -3,7 +3,7 @@ package com.kairosds.cursospb2.biblioteca.libroisbn.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kairosds.cursospb2.biblioteca.apierror.ApiError;
-import com.kairosds.cursospb2.biblioteca.apierror.CreateLibroIsbnErrors;
+import com.kairosds.cursospb2.biblioteca.libroisbn.domain.error.CreateLibroIsbnErrors;
 import com.kairosds.cursospb2.biblioteca.libroisbn.domain.LibroISBN;
 import com.kairosds.cursospb2.biblioteca.libroisbn.domain.exception.CreateLibroISBNCreditsMaximun;
 import com.kairosds.cursospb2.biblioteca.libroisbn.domain.exception.CreateLibroISBNExists;
