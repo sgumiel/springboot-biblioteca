@@ -19,6 +19,8 @@ public class LibroController {
     @PostMapping
     public ResponseEntity<Libro> createLibro(@RequestBody Libro libro) {
 
-        return ResponseEntity.ok(Libro.builder().build());
+        final var libroCreated = this.libroService.createLibro(libro);
+
+        return ResponseEntity.ok(libroCreated);
     }
 }
