@@ -19,6 +19,6 @@ public class BibliotecaController {
     public ResponseEntity<Boolean> associateBibliotecaLibro(@PathVariable("libroCode") String code) {
 
         final var associated = bibliotecaService.associateLibro(code);
-        return ResponseEntity.ok(false);
+        return ResponseEntity.ok(associated);
     }
 }
