@@ -1,23 +1,20 @@
 package com.kairosds.cursospb2.biblioteca.libro.repository;
 
 import com.kairosds.cursospb2.biblioteca.libro.domain.Libro;
-import com.kairosds.cursospb2.biblioteca.libroisbn.domain.LibroISBN;
-import com.kairosds.cursospb2.biblioteca.libroisbn.repository.LibroIsbnRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
-
-import javax.persistence.EntityManager;
 
 @DataJpaTest
 @ActiveProfiles("test")
 public class LibroRepositoryTest {
 
     @Autowired
-    private EntityManager entityManager;
+    private TestEntityManager entityManager;
 
     @Autowired
     private LibroRepository libroRepository;
