@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 @Builder
 @Entity
-@Table(name = "LIBRO_ISBN")
+@Table(name = "LIBRO")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Libro implements Serializable {
@@ -20,7 +20,7 @@ public class Libro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "codigo")
+    @Column(name = "code")
     private String codigo;
 
     @Column(name = "isbn")

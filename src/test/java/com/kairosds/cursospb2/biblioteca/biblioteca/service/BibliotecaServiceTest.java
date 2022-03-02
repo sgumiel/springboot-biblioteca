@@ -3,6 +3,7 @@ package com.kairosds.cursospb2.biblioteca.biblioteca.service;
 import com.kairosds.cursospb2.biblioteca.biblioteca.domain.exception.AssociateLibroBiliotecaLibroAlreadyAssociated;
 import com.kairosds.cursospb2.biblioteca.biblioteca.domain.exception.AssociateLibroBiliotecaLibroCodeNotExist;
 import com.kairosds.cursospb2.biblioteca.biblioteca.repository.BibliotecaLibroRepository;
+import com.kairosds.cursospb2.biblioteca.config.BibliotecaConfiguration;
 import com.kairosds.cursospb2.biblioteca.libro.domain.Libro;
 import com.kairosds.cursospb2.biblioteca.libro.domain.exception.CreateLibroCodeExists;
 import com.kairosds.cursospb2.biblioteca.libro.domain.exception.CreateLibroIsbnNotExists;
@@ -18,7 +19,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 @SpringBootTest(classes = BibliotecaServiceImpl.class)
 public class BibliotecaServiceTest {
 
@@ -27,6 +30,9 @@ public class BibliotecaServiceTest {
 
     @MockBean
     private LibroRepository libroRepository;
+
+    @MockBean
+    private BibliotecaConfiguration bibliotecaConfiguration;
 
     @Autowired
     private BibliotecaService bibliotecaService;
@@ -70,6 +76,9 @@ public class BibliotecaServiceTest {
 
         Mockito.when(bibliotecaLibroRepository.existsByLibroCodigo("OK8H6NM89L"))
                 .thenReturn(false);
+
+        Mockito.when(bibliotecaConfiguration.getCodigo())
+                .thenReturn("BIBLIMAD01");
 
         final var associated = this.bibliotecaService.associateLibro(codigo);
 
