@@ -1,17 +1,21 @@
 package com.kairosds.cursospb2.biblioteca.config;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@NoArgsConstructor
-@AllArgsConstructor
 @ConfigurationProperties(prefix = "biblioteca.data")
-public class BibliotecaConfiguration {
+public class BibliotecaConfiguration implements InitializingBean {
 
     private String codigo;
+
+    @Override
+    public void afterPropertiesSet() {
+        if (this.codigo == null) {
+            throw new IllegalArgumentException("Biblioteca codigo must be configured");
+        }
+    }
 }
