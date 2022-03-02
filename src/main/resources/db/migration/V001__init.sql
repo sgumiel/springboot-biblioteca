@@ -24,6 +24,7 @@ CREATE TABLE BIBLIOTECA_LIBRO (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     biblioteca_code VARCHAR(10),
     libro_code VARCHAR(10),
-    CONSTRAINT UC_LIBRO UNIQUE (biblioteca_code,libro_code)
-
+    CONSTRAINT UC_LIBRO UNIQUE (biblioteca_code,libro_code),
+    FOREIGN KEY (biblioteca_code) REFERENCES BIBLIOTECA(code),
+    FOREIGN KEY (libro_code) REFERENCES LIBRO(code)
 );
