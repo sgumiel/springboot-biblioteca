@@ -8,6 +8,6 @@ public class BibliotecaServiceImpl implements BibliotecaService {
 
     @Override
     public Boolean associateLibro(String codigo) {
-        return null;
+        return false;
     }
 }
