@@ -1,17 +1,31 @@
 package com.kairosds.cursospb2.biblioteca.libro.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Builder
-public class Libro {
+@Entity
+@Table(name = "LIBRO_ISBN")
+@AllArgsConstructor
+@NoArgsConstructor
+public class Libro implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "codigo")
     private String codigo;
 
+    @Column(name = "isbn")
     private String isbn;
 
-    private Boolean prestado;
+    @Column(name = "status")
+    private Boolean status;
 }
