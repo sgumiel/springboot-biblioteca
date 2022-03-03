@@ -1,0 +1,100 @@
+*********************** APLICACION GESTION DE LIBROS EN LAS BIBLIOTECAS *********************
+
+Necesitamos realizar una aplicacion para la gestion de los prestamos de libros entre bibliotecas.
+
+Cada biblioteca tendra su propio despliegue de la aplicacion, que arrancará con perfiles diferentes segun
+la biblioteca. Todas las bibliotecas comparten base de datos
+
+El campo codigo de biblioteca debe ser configurable (según el perfil, aunque logicamente,
+para una biblioteca siempre tendrá el mismo codigo)
+El codigo de biblioteca sera BIBLIOTECA0001 (ejemplo, palabra biblioteca + 4 digitos)
+
+Para facilitar la practica, tendremos la base de datos poblada, aun asi, necesitaremos los siguientes servicios para
+crear libros, copias de libros y asociar estas copias a las bibliotecas.
+Todas las tablas tendran identificador autoincremental, aunque luego puede que se relacionen con los codigos.
+
+En la aplicacion diferenciaremos 2 conceptos de libro.
+     * El primero hace referencia a un libro abstracto. Nos servirá
+       para saber si un libro 'existe' (lo tenemos registrado en el sistema) y para saber cuantos creditos otorgará un
+       prestamo de un ejemplar de ese libro. Tambien guardaremos el titulo y el autor
+
+     * El otro concepto hace referencia a una copia de un libro. Es una copia fisica. Deberemos guardar los siguientes
+       atributos: ISBN, codigo(unico para cada libro), estado (prestado o libre)
+
+El servicio de crear libro abstracto necesitará los datos de ISBN y creditos (da igual a que biblioteca se llame).
+   * El ISBN no deberá existir ya en la BBDD (5 caracteres alfanumericos)
+   * Los creditos no deberan superar un maximo (configurable, para todas las bibliotecas igual)
+   * titulo
+   * autor
+
+El servicio de crear libro copia necesitará los datos ISBn (deberá existir), codigo y el estado
+al crear un libro es libre. (Da igual a que biblioteca se llame)
+  * El ISBN debera existir
+  * El codigo no deberá existir (10 cartacteres alfanumericos)
+
+
+El servicio de relacionar libro(copia) con biblioteca hay que llamar a la biblioteca que se va a apoderar del libro
+necesitara el codigo del libro. Si ese libro ya está asignado a otra biliboteca, devolverá un mensaje
+de error descriptivo.
+
+
+Los libros se podran prestar entre bibliotecas por lo que necesitamos un servicio de prestamo. Un prestamo
+consiste en prestar un tipo de libro (ISBN y una cantidad).
+Para esta operativa
+necesiamos crear 2 servicios:
+
+   * Servicio de recepcion de solicitudes por parte de la biblioteca que quiere pedir libros
+       * Este servicio necesitara el codigo de libro que se quiere pedir, y el codigo de la biblioteca
+         a la que se le pide el prestamo
+            * El codigo del libro debe existir
+            * la biblioteca a la que pedir libros debe existir (para obtener la url a la que hacer la peticion)
+   * Servicio de prestamo por parte de la biblioteca propietaria del libro
+       * Este servicio necesita el codigo del libro, el numero de unidades y el tiempo de prestamo (dias)
+           * El isbn del libro debe existir
+           * El tiempo de prestamo es opcional
+
+Si la biblioteca que pide libro tiene creditos menores que cierto umbral (valor configurable,
+todas las bibliotecas iguales) se lanzará un error con mensaje Descriptivo 400
+
+Si la biblioteca receptora, es capaz de satisfacer con el prestamo, creara un registro de prestamo (por libro) que constará
+de los siguientes campos
+    * Identificador del prestamo (Autoincremental)
+    * Biblioteca que pide el prestamo
+    * Biblioteca que presta los libros
+    * codigo del libro
+    * Fecha del prestamo
+    * Fecha devolucion
+Ademas los libros quedaran marcados como prestados
+
+Si la biblioteca no puede satisfacer el prestamo se le restan una cierta cantidad de creditos que es configurable,
+logicamente este valor es igual para todas las BIBLIOTECAS
+
+Para este ejemplo entenderemos que los libros usan 'teleportacion cuantica' y desaparecen fisiscamente
+del origen y aparecen en destino.
+
+El periodo de prestamo (en caso de que no venga en la peticion REST) es un valor configurable (dias)
+La biblioteca tiene un perido maximo de prestamo, por lo que si nos llega una peticion y el tiempo de prestamo
+es superior al maximo, no se realizará el prestamo, y se lanzara un error especificandolo
+
+Dado que los libros tiene 'teleportacion cuantica' queremos que cada biblioteca tenga un proceso programado que revise que prestamos
+tiene que devolver. El proceso se ejecutará cada minuto.
+Si existe un prestamo que tengo que devolver, la biblioteca deberá ejecutar
+   * restaura el campo PRESTADO del libro a false
+   * crea un registro en la tabla prestamos_historicos
+   * borra el registro de la tabla prestamos
+   * publica por el topic creditos tantos creditos como la biblioteca de origen deba de recibir por cada libro que ha prestado
+       * El mensaje consistira en:
+           * el identficador de la biblioteca que recibe los creditos
+           * el identficador de la biblioteca que otorga
+           * el numero de creditos total que otorga
+
+Los creditos no tiene nada que ver con dinero ni nada parecido, simplemente es para llevar una 'cuenta' de que biblioteca presta mas.
+
+Cada biblioteca tiene un consumidor de kafka que escucha por el topic creditos. Cuando encuentra un evento el cual le otorga
+creditos, inserta en la tabla creditos_otorgados y actualiza el valor de la tabla creditostotales
+
+Por motivos de comptatibildiad, las bibliotecas tiene un servicio REST para obtener un listado de los libros que tiene
+ (Parametro codigo de bibloteca obligatorio) y la salida debe ser en XML
+
+Servicio que devuelva los prestamos actuales donde la biblioteca es quien presta (param obligatorio codigo biblioteca)
+Servicio que devuelva los prestamos actuales donde la biblioteca es quien ha pedido prestado el libro (param obligatorio codigo biblioteca)
