@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path: /biblioteca
+
 spring:
   flyway:
     enabled: true
@@ -17,6 +21,23 @@ spring:
     password: postgres
     continue-on-error: false
 
-
 credits:
   max-per-libro: 14
+  min-credits-to-request-libro: 10
+
+request-libros:
+  default-copies: 1
+
+biblioteca:
+  protocol: http
+  host: localhost
+  context-path: /biblioteca
+  receive-request-libro-path: /receive-request-libro
+
+bibliotecas-services:
+  receive-request-libro-url: ${biblioteca.protocol}://${biblioteca.host}:%s${biblioteca.context-path}${biblioteca.receive-request-libro-path}
+  mapRest:
+    BIBLIMAD01:
+      port: 8080
+    BIBLIMAD02:
+      port: 8081

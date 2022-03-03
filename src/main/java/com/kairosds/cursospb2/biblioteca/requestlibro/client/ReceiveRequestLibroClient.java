@@ -1,8 +1,8 @@
-package com.kairosds.cursospb2.biblioteca.requestlibro.service;
+package com.kairosds.cursospb2.biblioteca.requestlibro.client;
 
 import com.kairosds.cursospb2.biblioteca.requestlibro.domain.RequestLibro;
 
-public interface RequestLibroService {
+public interface ReceiveRequestLibroClient {
 
     Boolean requestLibro(RequestLibro requestLibro);
 }
