@@ -31,4 +31,14 @@ public class RequestLibroControllerAdvice {
 
         return ResponseEntity.status(400).body(apiError);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiError> handleRequestLibroLibroNotExist(Exception exception) {
+
+        final var apiError = ApiError.builder()
+                .code(RequestLibroErrors.BIBLIOTECA_CODE_NOT_EXIST.getCode())
+                .message(exception.getMessage()).build();
+
+        return ResponseEntity.status(400).body(apiError);
+    }
 }

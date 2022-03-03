@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "biblioteca.data")
-public class BibliotecaConfiguration implements InitializingBean {
+public class BibliotecaDataConfiguration implements InitializingBean {
 
     private String codigo;
 

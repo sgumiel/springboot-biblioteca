@@ -4,7 +4,7 @@ import com.kairosds.cursospb2.biblioteca.biblioteca.domain.BibliotecaLibro;
 import com.kairosds.cursospb2.biblioteca.biblioteca.domain.exception.AssociateLibroBiliotecaLibroAlreadyAssociated;
 import com.kairosds.cursospb2.biblioteca.biblioteca.domain.exception.AssociateLibroBiliotecaLibroCodeNotExist;
 import com.kairosds.cursospb2.biblioteca.biblioteca.repository.BibliotecaLibroRepository;
-import com.kairosds.cursospb2.biblioteca.config.BibliotecaConfiguration;
+import com.kairosds.cursospb2.biblioteca.config.BibliotecaDataConfiguration;
 import com.kairosds.cursospb2.biblioteca.libro.repository.LibroRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class BibliotecaServiceImpl implements BibliotecaService {
     private final BibliotecaLibroRepository bibliotecaLibroRepository;
 
     @Autowired
-    private BibliotecaConfiguration bibliotecaConfiguration;
+    private BibliotecaDataConfiguration bibliotecaDataConfiguration;
 
     @Override
     public Boolean associateLibro(String codigo) {
@@ -37,7 +37,7 @@ public class BibliotecaServiceImpl implements BibliotecaService {
             throw new AssociateLibroBiliotecaLibroAlreadyAssociated(codigo);
         }
 
-        final var bibliotecaCode = this.bibliotecaConfiguration.getCodigo();
+        final var bibliotecaCode = this.bibliotecaDataConfiguration.getCodigo();
 
         final var bibliotecaLibro = BibliotecaLibro.builder()
                 .bibliotecaCodigo(bibliotecaCode)
