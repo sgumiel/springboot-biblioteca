@@ -1,4 +1,4 @@
-package com.kairosds.cursospb2.biblioteca.requestlibro.controller;
+package com.kairosds.cursospb2.biblioteca.receiverequestlibro.service.controller;
 
 import com.kairosds.cursospb2.biblioteca.requestlibro.domain.RequestLibro;
 import com.kairosds.cursospb2.biblioteca.requestlibro.service.RequestLibroService;

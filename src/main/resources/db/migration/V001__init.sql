@@ -1,7 +1,7 @@
 CREATE TABLE BIBLIOTECA (
     id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     code VARCHAR(10) UNIQUE,
-    credits INT DEFAULT 0
+    credits INT DEFAULT 20
 );
 
 CREATE TABLE LIBRO_ISBN (
@@ -27,4 +27,14 @@ CREATE TABLE BIBLIOTECA_LIBRO (
     CONSTRAINT UC_LIBRO UNIQUE (biblioteca_code,libro_code),
     FOREIGN KEY (biblioteca_code) REFERENCES BIBLIOTECA(code),
     FOREIGN KEY (libro_code) REFERENCES LIBRO(code)
+);
+
+CREATE TABLE PRESTAMO (
+
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    biblioteca1 varchar(10),
+    biblioteca2 varchar(10),
+    librocode varchar(10),
+    lenddate TIMESTAMP WITH TIME ZONE,
+    returndate TIMESTAMP WITH TIME ZONE
 );

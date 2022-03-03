@@ -3,6 +3,8 @@ server:
     context-path: /biblioteca
 
 spring:
+  kafka:
+    bootstrap-servers: localhost:9092
   flyway:
     enabled: true
     locations: classpath:/db/migration
@@ -41,3 +43,6 @@ bibliotecas-services:
       port: 8080
     BIBLIMAD02:
       port: 8081
+
+topics:
+  pelicula: topic-pelicula

@@ -4,8 +4,12 @@ import com.kairosds.cursospb2.biblioteca.libro.domain.Libro;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface LibroRepository extends CrudRepository<Libro, Long> {
 
     Boolean existsByCodigo(String codigo);
+
+    Optional<Libro> findByCodigo(String code);
 }

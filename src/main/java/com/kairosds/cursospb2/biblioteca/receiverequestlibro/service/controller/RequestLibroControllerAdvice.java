@@ -1,4 +1,4 @@
-package com.kairosds.cursospb2.biblioteca.requestlibro.controller;
+package com.kairosds.cursospb2.biblioteca.receiverequestlibro.service.controller;
 
 import com.kairosds.cursospb2.biblioteca.apierror.ApiError;
 import com.kairosds.cursospb2.biblioteca.libro.domain.error.CreateLibroErrors;
