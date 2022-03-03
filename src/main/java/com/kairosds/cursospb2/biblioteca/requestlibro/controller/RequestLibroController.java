@@ -19,6 +19,8 @@ public class RequestLibroController {
 
     @PostMapping
     public ResponseEntity<Boolean> requestLibro(@RequestBody @Validated RequestLibro requestLibro) {
-        return ResponseEntity.ok(false);
+
+        final var librosPrestados = this.requestLibroService.requestLibro(requestLibro);
+        return ResponseEntity.ok(librosPrestados);
     }
 }
